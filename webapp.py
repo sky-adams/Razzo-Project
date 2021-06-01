@@ -470,7 +470,7 @@ def user_submit_post_ELL():
         for admin in adminDocuments:
             if admin.get('email') != None and admin.get('opt') == True:
                 notificationList.append(admin.get('email'))
-        link = 'https://razzoforumproject.herokuapp.com/viewELLU?thread=' + str(generate) #generated link to the post. NOTE: will not work if the link changes so need to be updated
+        link = 'https://family-communication.herokuapp.com/viewELLU?thread=' + str(generate) #generated link to the post. NOTE: will not work if the link changes so need to be updated
         for email in notificationList: #for every admin who has opted in to getting post email, send an email to them
             send_email(email, request.form['userTitle'], request.form['userName'], link, True, False)
     return render_english_learner_forum()
@@ -515,7 +515,7 @@ def user_submit_post_SE():
         for admin in adminDocuments:
             if admin.get('email') != None and admin.get('opt') == True:
                 notificationList.append(admin.get('email'))
-        link = 'https://razzoforumproject.herokuapp.com/viewSEU?thread=' + str(generate)
+        link = 'https://family-communication.herokuapp.com/viewSEU?thread=' + str(generate)
         for email in notificationList:
             send_email(email, request.form['userTitle'], request.form['userName'], link, True, False)
     return render_special_education_forum()
@@ -542,19 +542,19 @@ def submit_comment():
         objectIDPost = request.form['ID']
         collection = db['SEA']
         post = collection.find_one({'_id': ObjectId(objectIDPost)})
-        link = 'https://razzoforumproject.herokuapp.com/viewSEA?thread=' + objectIDPost
+        link = 'https://family-communication.herokuapp.com/viewSEA?thread=' + objectIDPost
         if post == None:
             collection = db['SEU']
             post = collection.find_one({'_id': ObjectId(objectIDPost)})
-            link = 'https://razzoforumproject.herokuapp.com/viewSEU?thread=' + objectIDPost
+            link = 'https://family-communication.herokuapp.com/viewSEU?thread=' + objectIDPost
         if post == None:
             collection = db['ELLA']
             post = collection.find_one({'_id': ObjectId(objectIDPost)})
-            link = 'https://razzoforumproject.herokuapp.com/viewELLA?thread=' + objectIDPost
+            link = 'https://family-communication.herokuapp.com/viewELLA?thread=' + objectIDPost
         if post == None:
             collection = db['ELLU']
             post = collection.find_one({'_id': ObjectId(objectIDPost)}) #if statements find out what collection the commented post belongs to,
-            link = 'https://razzoforumproject.herokuapp.com/viewELLU?thread=' + objectIDPost #as well as get the post itself
+            link = 'https://family-communication.herokuapp.com/viewELLU?thread=' + objectIDPost #as well as get the post itself
         keyList = list(post.keys())
         if 'comment' in keyList[-1]: #since all comments are stored as, for example, 'comment0', 'comment1', and 'comment4,' this code generates the number at the end of 'comment'
             lastNumber = keyList[-1]
@@ -603,7 +603,7 @@ def submit_comment():
             action = request.form['adminName'] + '<span class="createColor"> commented </span>on <form action="/viewSEU" class="inLine"><select class="selection" name="thread"><option value="' + objectIDPost + '"></option></select><button type="submit" class="customButton commentButton"><b>' + post.get('postTitle') + '</b></button></form> in special education forum'
             add_admin_log(datetime.now(), action, 'none')
             if post.get('parentEmail') != 'Email not provided' and post.get('approved') == 'true':
-                link = 'https://razzoforumproject.herokuapp.com/viewSEU?thread=' + objectIDPost 
+                link = 'https://family-communication.herokuapp.com/viewSEU?thread=' + objectIDPost 
                 send_email(post.get('parentEmail'), post.get('postTitle'), post.get('parentName'), link, False, False)
         else:
             action = request.form['userName'] + '<span class="createColor"> commented </span>on <form action="/viewSEU" class="inLine"><select class="selection" name="thread"><option value="' + objectIDPost + '"></option></select><button type="submit" class="customButton commentButton"><b>' + post.get('postTitle') + '</b></button></form> in special education forum'
@@ -622,7 +622,7 @@ def submit_comment():
             action = request.form['adminName'] + '<span class="createColor"> commented </span>on <form action="/viewELLU" class="inLine"><select class="selection" name="thread"><option value="' + objectIDPost + '"></option></select><button type="submit" class="customButton commentButton"><b>' + post.get('postTitle') + '</b></button></form> in english language learner forum'
             add_admin_log(datetime.now(), action, 'none')
             if post.get('parentEmail') != 'Email not provided' and post.get('approved') == 'true':
-                link = 'https://razzoforumproject.herokuapp.com/viewSEU?thread=' + objectIDPost 
+                link = 'https://family-communication.herokuapp.com/viewSEU?thread=' + objectIDPost 
                 send_email(post.get('parentEmail'), post.get('postTitle'), post.get('parentName'), link, False, False)
         else:
             action = request.form['userName'] + '<span class="createColor"> commented </span>on <form action="/viewELLU" class="inLine"><select class="selection" name="thread"><option value="' + objectIDPost + '"></option></select><button type="submit" class="customButton commentButton"><b>' + post.get('postTitle') + '</b></button></form> in english language learner forum'
