@@ -24,7 +24,9 @@ oauth.init_app(app) #initialize the app to be able to make requests for user inf
 connection_string = os.environ['MONGO_CONNECTION_STRING']
 db_name = os.environ['MONGO_DBNAME']
 client = pymongo.MongoClient(connection_string)
+print(client)
 db = client[db_name]
+print(db)
 
 #Set up GitHub as OAuth provider
 github = oauth.remote_app(
