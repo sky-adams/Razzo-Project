@@ -87,7 +87,7 @@ def authorized():
 def send_email(receiver_email, title, name, link, logged, comment):
     collection = db['EMAIL'] #database contains a single document storing the email and password of the email bot
     try:
-        information = collection.find_one({'_id': ObjectId('60b2d66ba55f630f74e0a554')}) #gets the document storing the email and password of the bot
+        information = collection.find_one({'_id': ObjectId('60b779cb6137b72e7a9666da')}) #gets the document storing the email and password of the bot
         smtp_server = 'smtp.gmail.com'
         sender_email = information.get('sender_email') #gets bot email
         password = information.get('password') #gets bot password
