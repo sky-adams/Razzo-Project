@@ -64,14 +64,14 @@ def authorized():
         message = 'Access denied: reason=' + request.args['error'] + ' error=' + request.args['error_description'] + ' full=' + pprint.pformat(request.args)      
     else:
         try:
-            session['github_token'] = (resp['access_token'], '') #save the token to prove that the user logged in
-            session['user_data']=github.get('user').data 
             collection = db['ADMIN'] #database storing admin information
             adminDocuments = collection.find({}) #find all documents in admin database
             adminList = [] 
             for admin in adminDocuments: #for all admin documents
                 adminList.append(admin.get('username')) #put name of admin into list
-            if session['user_data']['login'] in adminList: #if the admin name list has name of user trying to log in
+            if github.get('user').data['login'] in adminList: #if the admin name list has name of user trying to log in
+                session['github_token'] = (resp['access_token'], '') #save the token to prove that the user logged in
+                session['user_data']=github.get('user').data 
                 message='You were successfully logged in as ' + session['user_data']['login'] + '. Don\'t forget to log out before exiting this website.' 
             else:
                 session.clear()
