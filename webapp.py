@@ -66,11 +66,8 @@ def authorized():
         try:
             session['github_token'] = (resp['access_token'], '') #save the token to prove that the user logged in
             session['user_data']=github.get('user').data 
-            print(db)
             collection = db['ADMIN'] #database storing admin information
-            print(collection)
             adminDocuments = collection.find({}) #find all documents in admin database
-            print(adminDocuments)
             adminList = [] 
             for admin in adminDocuments: #for all admin documents
                 print(admin)
