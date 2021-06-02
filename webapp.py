@@ -91,8 +91,6 @@ def send_email(receiver_email, title, name, link, logged, comment):
         smtp_server = 'smtp.gmail.com'
         sender_email = information.get('sender_email') #gets bot email
         password = information.get('password') #gets bot password
-        print(sender_email)
-        print(password)
         message = MIMEMultipart('alternative')
         message['Subject'] = 'SBHS Parent Board Notification' #subject of automatic email
         message['From'] = sender_email #email of bot
