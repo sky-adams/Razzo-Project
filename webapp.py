@@ -73,6 +73,7 @@ def authorized():
             print(adminDocuments)
             adminList = [] 
             for admin in adminDocuments: #for all admin documents
+                print(admin)
                 adminList.append(admin.get('username')) #put name of admin into list
             if session['user_data']['login'] in adminList: #if the admin name list has name of user trying to log in
                 message='You were successfully logged in as ' + session['user_data']['login'] + '. Don\'t forget to log out before exiting this website.' 
