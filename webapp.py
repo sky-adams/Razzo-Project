@@ -566,6 +566,8 @@ def submit_comment():
             print("from ELLU")
             print(post)
             link = 'https://family-communication.herokuapp.com/viewELLU?thread=' + objectIDPost #as well as get the post itself
+            print(link)
+            print(collection)
         keyList = list(post.keys())
         if 'comment' in keyList[-1]: #since all comments are stored as, for example, 'comment0', 'comment1', and 'comment4,' this code generates the number at the end of 'comment'
             lastNumber = keyList[-1]
@@ -633,7 +635,7 @@ def submit_comment():
             action = request.form['adminName'] + '<span class="createColor"> commented </span>on <form action="/viewELLU" class="inLine"><select class="selection" name="thread"><option value="' + objectIDPost + '"></option></select><button type="submit" class="customButton commentButton"><b>' + post.get('postTitle') + '</b></button></form> in english language learner forum'
             add_admin_log(datetime.now(), action, 'none')
             if post.get('parentEmail') != 'Email not provided' and post.get('approved') == 'true':
-                link = 'https://family-communication.herokuapp.com/viewSEU?thread=' + objectIDPost 
+                link = 'https://family-communication.herokuapp.com/viewELLU?thread=' + objectIDPost 
                 send_email(post.get('parentEmail'), post.get('postTitle'), post.get('parentName'), link, False, False)
         else:
             action = request.form['userName'] + '<span class="createColor"> commented </span>on <form action="/viewELLU" class="inLine"><select class="selection" name="thread"><option value="' + objectIDPost + '"></option></select><button type="submit" class="customButton commentButton"><b>' + post.get('postTitle') + '</b></button></form> in english language learner forum'
