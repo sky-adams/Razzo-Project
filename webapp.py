@@ -542,12 +542,15 @@ def admin_submit_post_SE():
 def submit_comment():
     if request.method == 'POST':
         objectIDPost = request.form['ID']
+        print(objectIDPost)
         collection = db['SEA']
         post = collection.find_one({'_id': ObjectId(objectIDPost)})
+        print(post)
         link = 'https://family-communication.herokuapp.com/viewSEA?thread=' + objectIDPost
         if post == None:
             collection = db['SEU']
             post = collection.find_one({'_id': ObjectId(objectIDPost)})
+            print(post)
             link = 'https://family-communication.herokuapp.com/viewSEU?thread=' + objectIDPost
         if post == None:
             collection = db['ELLA']
@@ -556,6 +559,7 @@ def submit_comment():
         if post == None:
             collection = db['ELLU']
             post = collection.find_one({'_id': ObjectId(objectIDPost)}) #if statements find out what collection the commented post belongs to,
+            print(post)
             link = 'https://family-communication.herokuapp.com/viewELLU?thread=' + objectIDPost #as well as get the post itself
         keyList = list(post.keys())
         if 'comment' in keyList[-1]: #since all comments are stored as, for example, 'comment0', 'comment1', and 'comment4,' this code generates the number at the end of 'comment'
