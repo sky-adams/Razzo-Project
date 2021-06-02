@@ -24,9 +24,7 @@ oauth.init_app(app) #initialize the app to be able to make requests for user inf
 connection_string = os.environ['MONGO_CONNECTION_STRING']
 db_name = os.environ['MONGO_DBNAME']
 client = pymongo.MongoClient(connection_string)
-print(client)
 db = client[db_name]
-print(db)
 
 #Set up GitHub as OAuth provider
 github = oauth.remote_app(
@@ -68,8 +66,11 @@ def authorized():
         try:
             session['github_token'] = (resp['access_token'], '') #save the token to prove that the user logged in
             session['user_data']=github.get('user').data 
+            print(db)
             collection = db['ADMIN'] #database storing admin information
+            print(collection)
             adminDocuments = collection.find({}) #find all documents in admin database
+            print(adminDocuments)
             adminList = [] 
             for admin in adminDocuments: #for all admin documents
                 adminList.append(admin.get('username')) #put name of admin into list
