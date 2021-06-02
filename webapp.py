@@ -540,21 +540,13 @@ def admin_submit_post_SE():
 @app.route('/submitComment', methods=['GET', 'POST']) 
 def submit_comment():
     if request.method == 'POST':
-        print("request.form:")
-        print(request.form)
         objectIDPost = request.form['ID']
-        print("Object ID")
-        print(objectIDPost)
         collection = db['SEA']
         post = collection.find_one({'_id': ObjectId(objectIDPost)})
-        print("from SEA")
-        print(post)
         link = 'https://family-communication.herokuapp.com/viewSEA?thread=' + objectIDPost
         if post == None:
             collection = db['SEU']
             post = collection.find_one({'_id': ObjectId(objectIDPost)})
-            print("from SEU")
-            print(post)
             link = 'https://family-communication.herokuapp.com/viewSEU?thread=' + objectIDPost
         if post == None:
             collection = db['ELLA']
@@ -563,11 +555,7 @@ def submit_comment():
         if post == None:
             collection = db['ELLU']
             post = collection.find_one({'_id': ObjectId(objectIDPost)}) #if statements find out what collection the commented post belongs to,
-            print("from ELLU")
-            print(post)
             link = 'https://family-communication.herokuapp.com/viewELLU?thread=' + objectIDPost #as well as get the post itself
-            print(link)
-            print(collection)
         keyList = list(post.keys())
         if 'comment' in keyList[-1]: #since all comments are stored as, for example, 'comment0', 'comment1', and 'comment4,' this code generates the number at the end of 'comment'
             lastNumber = keyList[-1]
