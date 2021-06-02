@@ -67,10 +67,8 @@ def authorized():
             collection = db['ADMIN'] #database storing admin information
             adminDocuments = collection.find({}) #find all documents in admin database
             adminList = [] 
-            print("user data")
             session['github_token'] = (resp['access_token'], '') #save the token to prove that the user logged in
             user_data = github.get('user').data
-            print(user_data)
             for admin in adminDocuments: #for all admin documents
                 adminList.append(admin.get('username')) #put name of admin into list
             if user_data['login'] in adminList: #if the admin name list has name of user trying to log in
