@@ -1052,6 +1052,7 @@ def view_ELLA(objectIDPost): #go to view_SEA for comments since these functions 
 def view_ELLU(objectIDPost): #go to view_SEA for comments since these functions work the same way.
     collection = db['ELLU']
     post = collection.find_one({'_id': ObjectId(objectIDPost)})
+    print("from db: " + post)
     postTitle = post.get('postTitle')
     postContent = post.get('postContent')
     utc_dt = datetime(int(post.get('dateTime').strftime('%Y')), int(post.get('dateTime').strftime('%m')), int(post.get('dateTime').strftime('%d')), int(post.get('dateTime').strftime('%H')), int(post.get('dateTime').strftime('%M')), 0, tzinfo=pytz.utc)
@@ -1137,6 +1138,8 @@ def view_ELLU(objectIDPost): #go to view_SEA for comments since these functions 
                             bigString += '<tr><td class="comments"><b>' + post.get('comment' + str(i), {}).get('parentName') + '</b><br><i>' + loc_dt + '</i><br><br>' + post.get('comment' + str(i), {}).get('postContent') + '</td></tr>'
                 counter += 1
             i += 1
+    print("without Markup: " + postContent)
+    print("with Markup: " + Markup(postContent))
     return render_template('comments.html', title = postTitle, name = parentName, information = info, time = loc_dt, content = Markup(postContent), _id = objectIDPost, comments = Markup(bigString), oldContent = Markup(postContent), oldTitle = postTitle)
 
 @app.route('/deleteSE', methods=['GET', 'POST']) #deletes a user or admin post in the special education forum
