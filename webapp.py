@@ -1052,7 +1052,7 @@ def view_ELLA(objectIDPost): #go to view_SEA for comments since these functions 
 def view_ELLU(objectIDPost): #go to view_SEA for comments since these functions work the same way.
     collection = db['ELLU']
     post = collection.find_one({'_id': ObjectId(objectIDPost)})
-    print("from db: " + post)
+    print("from db: " + str(post))
     postTitle = post.get('postTitle')
     postContent = post.get('postContent')
     utc_dt = datetime(int(post.get('dateTime').strftime('%Y')), int(post.get('dateTime').strftime('%m')), int(post.get('dateTime').strftime('%d')), int(post.get('dateTime').strftime('%H')), int(post.get('dateTime').strftime('%M')), 0, tzinfo=pytz.utc)
