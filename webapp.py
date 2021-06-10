@@ -456,7 +456,7 @@ def user_submit_post_ELL():
         print("from request.form: " + content)
         content = content.replace('\\"', '"')
         content = content.replace('\\t', '&nbsp;&nbsp;&nbsp;&nbsp;')
-        content = content.replace(' ', '&nbsp;')
+        #content = content.replace(' ', '&nbsp;')
         content = Markup(content[1:len(content)-1]) #these turn content from quill text into content that is readable and usable.
         print("after cleaning: " + content)
         if request.form['userEmail'] == '': #if the poster did not put down an email.
