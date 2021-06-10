@@ -453,12 +453,10 @@ def user_submit_post_ELL():
     if request.method == 'POST':
         collection = db['ELLU']
         content = request.form['userMessage']
-        print("from request.form: " + content)
         content = content.replace('\\"', '"')
         content = content.replace('\\t', '&nbsp;&nbsp;&nbsp;&nbsp;')
         #content = content.replace(' ', '&nbsp;')
         content = Markup(content[1:len(content)-1]) #these turn content from quill text into content that is readable and usable.
-        print("after cleaning: " + content)
         if request.form['userEmail'] == '': #if the poster did not put down an email.
             email = 'Email not provided'
         else: #if the poster put down an email.
@@ -484,9 +482,9 @@ def admin_submit_post_ELL():
     if request.method == 'POST':
         collection = db['ELLA'] 
         content = request.form['adminMessage']
-        content = content.replace('\\"', '')
+        content = content.replace('\\"', '"')
         content = content.replace('\\t', '&nbsp;&nbsp;&nbsp;&nbsp;')
-        content = content.replace(' ', '&nbsp;')
+        #content = content.replace(' ', '&nbsp;')
         content = Markup(content[1:len(content)-1]) #these turn content from quill text into content that is readable and usable.
         generate = ObjectId()
         post = {'_id': generate, 'postTitle': request.form['adminTitle'], 'adminName': request.form['adminName'], 'dateTime': datetime.now(), 'postContent': content, 'amount': 0}
@@ -500,9 +498,9 @@ def user_submit_post_SE():
     if request.method == 'POST':
         collection = db['SEU']
         content = request.form['userMessage']
-        content = content.replace('\\"', '')
+        content = content.replace('\\"', '"')
         content = content.replace('\\t', '&nbsp;&nbsp;&nbsp;&nbsp;')
-        content = content.replace(' ', '&nbsp;')
+        #content = content.replace(' ', '&nbsp;')
         content = Markup(content[1:len(content)-1])
         if request.form['userEmail'] == '':
             email = 'Email not provided'
@@ -529,9 +527,9 @@ def admin_submit_post_SE():
     if request.method == 'POST':
         collection = db['SEA']
         content = request.form['adminMessage']
-        content = content.replace('\\"', '')
+        content = content.replace('\\"', '"')
         content = content.replace('\\t', '&nbsp;&nbsp;&nbsp;&nbsp;')
-        content = content.replace(' ', '&nbsp;')
+        #content = content.replace(' ', '&nbsp;')
         content = Markup(content[1:len(content)-1])
         generate = ObjectId()
         post = {'_id': generate, 'postTitle': request.form['adminTitle'], 'adminName': request.form['adminName'], 'dateTime': datetime.now(), 'postContent': content, 'amount': 0}
@@ -568,18 +566,18 @@ def submit_comment():
             lastNumber = '0'
         if 'github_token' in session: #if the commenter is an admin
             content = request.form['adminMessage']
-            content = content.replace('\\"', '')
+            content = content.replace('\\"', '"')
             content = content.replace('\\t', '&nbsp;&nbsp;&nbsp;&nbsp;')
-            content = content.replace(' ', '&nbsp;')
+            #content = content.replace(' ', '&nbsp;')
             content = Markup(content[1:len(content)-1]) #quill text changed to readable and usable content
             post['comment' + lastNumber] = {'adminName': request.form['adminName'], 'dateTime': datetime.now(), 'postContent': content}
             post['amount'] = post.get('amount') + 1
             collection.replace_one({'_id': ObjectId(objectIDPost)}, post) #replaces the post with the same post but with the comment added.
         else: #if the commenter is not an admin
             content = request.form['userMessage']
-            content = content.replace('\\"', '')
+            content = content.replace('\\"', '"')
             content = content.replace('\\t', '&nbsp;&nbsp;&nbsp;&nbsp;')
-            content = content.replace(' ', '&nbsp;')
+            #content = content.replace(' ', '&nbsp;')
             content = Markup(content[1:len(content)-1]) #quill text changed to readable and usable content
             post['comment' + lastNumber] = {'parentName': request.form['userName'], 'studentNameGrade': request.form['userStudent'], 'anonymous': request.form['anon'], 'dateTime': datetime.now(), 'postContent': content, 'approved': 'false'}
             collection.replace_one({'_id': ObjectId(objectIDPost)}, post) #replaces the post with the same post but with the comment added.
